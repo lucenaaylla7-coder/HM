@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC VIRTUAL - RTX 3070</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+body { background: #000; height: 100vh; overflow: hidden; }
+#boot { position: fixed; width: 100%; height: 100%; background: #000; color: #00ff00; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 999; }
+#desktop { display: none; width: 100%; height: 100%; background: linear-gradient(135deg, #0f0f1a, #1a1a2e, #16213e); padding: 60px 20px 70px 20px; }
+#topbar { position: fixed; top: 0; left: 0; width: 100%; height: 40px; background: rgba(0,0,0,0.9); color: white; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 14px; }
+.app { width: 95px; text-align: center; color: white; margin: 15px; cursor: pointer; display: inline-block; }
+.app div { width: 70px; height: 70px; background: #222; border: 2px solid #00ff00; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 6px; }
+#win { display: none; position: fixed; top: 50px; left: 5%; width: 90%; height: calc(100% - 110px); background: #111; border: 2px solid #00ff00; border-radius: 12px; overflow: hidden; z-index: 10; }
+#bar { background: #00ff00; color: #000; padding: 10px; display: flex; justify-content: space-between; font-weight: bold; }
+iframe { width: 100%; height: calc(100% - 42px); border: 0; background: #fff; }
+#taskbar { position: fixed; bottom: 0; width: 100%; height: 50px; background: #111; color: #00ff00; display: flex; align-items: center; padding: 0 15px; gap: 10px; font-size: 12px; border-top: 2px solid #00ff00; }
+.spec { background: #222; padding: 5px 10px; border-radius: 20px; border: 1px solid #00ff00; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<div id="boot">
+<h2 id="log">INICIANDO PC VIRTUAL...</h2>
+</div>
+
+<div id="desktop">
+<div id="topbar"><span>PC VIRTUAL - RTX 3070</span><span id="clock">--:--</span></div>
+
+<div class="app" onclick="openApp('https://now.gg/apps/roblox-corporation/1775-roblox.html','ROBLOX')"><div>🎮</div>ROBLOX</div>
+<div class="app" onclick="openApp('https://classic.minecraft.net/','MINECRAFT')"><div>⛏️</div>MINECRAFT</div>
+<div class="app" onclick="openApp('https://www.google.com/webhp?igu=1','CHROME')"><div>🌐</div>CHROME</div>
+<div class="app" onclick="openApp('https://www.youtube.com','YOUTUBE')"><div>▶️</div>YOUTUBE</div>
+<div class="app" onclick="openApp('https://vscode.dev','VS CODE')"><div>💻</div>VS CODE</div>
+
+<div id="win">
+<div id="bar"><span id="wTitle">APP</span><span onclick="closeWin()" style="cursor:pointer;background:#000;color:#00ff00;padding:0 12px;border-radius:6px">X FECHAR</span></div>
+<iframe id="frame" src="" allow="fullscreen"></iframe>
+</div>
+
+<div id="taskbar">
+<span>ONLINE</span>
+<span class="spec">RTX 3070 8GB</span>
+<span class="spec">32GB RAM</span>
+<span class="spec">144 FPS</span>
+</div>
+</div>
+
+<script>
+var logs = ["> BIOS OK", "> RTX 3070 DETECTADA", "> 32GB RAM OK", "> CARREGANDO...", "> PRONTO!"];
+var i = 0;
+var el = document.getElementById("log");
+var t = setInterval(function() {
+  if (i < logs.length) {
+    el.innerHTML = el.innerHTML + "<br>" + logs[i];
+    i++;
+  } else {
+    clearInterval(t);
+    setTimeout(function() {
+      document.getElementById("boot").style.display = "none";
+      document.getElementById("desktop").style.display = "block";
+    }, 500);
+  }
+}, 500);
+
+function openApp(url, nome) {
+  document.getElementById("wTitle").innerText = nome;
+  document.getElementById("frame").src = url;
+  document.getElementById("win").style.display = "block";
+}
+function closeWin() {
+  document.getElementById("win").style.display = "none";
+  document.getElementById("frame").src = "";
+}
+setInterval(function() {
+  document.getElementById("clock").innerText = new Date().toLocaleTimeString('pt-BR');
+}, 1000);
+</script>
+</body>
+</html>
